@@ -16,7 +16,7 @@
 	-n 不进行存活探测(ICMP)直接进行扫描。  
 4. **使用例子**  
 	python Scrack.py -h 10.111.1  
-	python Scrack.py -h 192.168.1.1 -d pass.txt
+	python Scrack.py -h 192.168.1.1 -d pass.txt  
 	python Scrack.py -h 10.111.1.1-10.111.2.254 -p 3306,5432 -m 200 -t 6  
 	python NAScan.py -h ip.ini -n  
 5. **特别声明**  
