@@ -22,7 +22,7 @@ mutex = threading.Lock()
 TIMEOUT = 10
 I = 0
 USER_DIC = {
-    "ftp":['www','admin','root','db','wwwroot','data','web','ftp'],
+    "ftp":['root','admin','root','db','wwwroot','data','web','ftp'],
     "mysql":['root'],
     "mssql":['sa'],
     "telnet":['administrator','admin','root','cisco'],
@@ -410,6 +410,16 @@ def server_discern(host,port,data):
 def pass_crack(server_type,host,port):
     m = Crack(host,port,server_type,TIMEOUT)
     return m.run()
+def get_password_dic(path):
+    pass_list = []
+    try:
+        file_ = open(path,'r')
+        for password in file_:
+            pass_list.append(password.strip())
+        file_.close()
+        return pass_list
+    except:
+        return 'read dic error'
 def get_ip_list(ip):
     ip_list = []
     iptonum = lambda x:sum([256**j*int(i) for j,i in enumerate(x.split('.')[::-1])])
@@ -471,12 +481,12 @@ def put_queue(ip_list,port_list):
             queue.put(":".join(['portscan',ip,port]))
 if __name__=="__main__":
     msg = '''
-Usage: python F-Scrack.py -h 192.168.1 [-p 21,80,3306] [-m 50] [-t 10] [-n]
+Usage: python F-Scrack.py -h 192.168.1 [-p 21,80,3306] [-m 50] [-t 10] [-d pass.txt] [-n]
     '''
     if len(sys.argv) < 2:
         print msg
     try:
-        options,args = getopt.getopt(sys.argv[1:],"h:p:m:t:n")
+        options,args = getopt.getopt(sys.argv[1:],"h:p:m:t:d:n")
         ip = ''
         port = '21,23,1433,3306,5432,6379,9200,11211,27017'
         m_count = 100
@@ -490,8 +500,10 @@ Usage: python F-Scrack.py -h 192.168.1 [-p 21,80,3306] [-m 50] [-t 10] [-n]
                 m_count = int(arg)
             elif opt == '-t':
                 TIMEOUT = int(arg)
-            elif opt == 'n':
+            elif opt == '-n':
                 ping = False
+            elif opt == '-d':
+                PASSWORD_DIC = get_password_dic(arg)
         socket.setdefaulttimeout(TIMEOUT)
         if ip:
             ip_list = get_ip_list(ip)
