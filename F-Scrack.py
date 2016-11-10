@@ -8,7 +8,6 @@ import threading
 import socket
 import urllib2
 import time
-import ssl
 import os
 import re
 import ftplib
@@ -16,7 +15,6 @@ import hashlib
 import struct
 import binascii
 import telnetlib
-import traceback
 import array
 
 queue = Queue.Queue()
@@ -331,7 +329,6 @@ def get_ac_ip(ip_list):
         ipPool = set(ip_list)
         return s.mPing(ipPool)
     except Exception,e:
-        traceback.print_exc()
         print 'The current user permissions unable to send icmp packets'
         return ip_list
 class ThreadNum(threading.Thread):
@@ -358,7 +355,6 @@ class ThreadNum(threading.Thread):
                     result = pass_crack(task_type,task_host,task_port)
                     if result and result !=3:log(task_type,task_host,task_port,result)
             except Exception,e:
-                traceback.print_exc()
                 continue
 def scan_port(host,port):
     try:
