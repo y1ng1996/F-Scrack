@@ -22,7 +22,7 @@ mutex = threading.Lock()
 TIMEOUT = 10
 I = 0
 USER_DIC = {
-    "ftp":['root','admin','root','db','wwwroot','data','web','ftp'],
+    "ftp":['www','admin','root','db','wwwroot','data','web','ftp'],
     "mysql":['root'],
     "mssql":['sa'],
     "telnet":['administrator','admin','root','cisco'],
